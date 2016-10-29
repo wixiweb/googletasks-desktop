@@ -1,21 +1,22 @@
 {
-  "name": "electron-quick-start",
-  "version": "1.0.0",
-  "description": "A minimal Electron application",
-  "main": "main.js",
+  "name": "GoogleTasks Desktop",
+  "version": "0.1.0",
+  "description": "A desktop app for Google Tasks, using Electron like container",
+  "main": "src/main.js",
   "scripts": {
     "start": "electron ."
   },
-  "repository": "https://github.com/electron/electron-quick-start",
+  "repository": "https://github.com/wixiweb/googletasks-desktop",
   "keywords": [
+    "Google",
+    "Tasks",
+    "Task",
     "Electron",
-    "quick",
-    "start",
-    "tutorial",
-    "demo"
+    "Desktop",
+    "Windows"
   ],
-  "author": "GitHub",
-  "license": "CC0-1.0",
+  "author": "arnolem",
+  "license": "GNU",
   "devDependencies": {
     "electron": "^1.4.1"
   }
