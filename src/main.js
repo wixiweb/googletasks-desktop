@@ -40,7 +40,7 @@ function createWindow() {
     });
 
     // and load the index.html of the app.
-    mainWindow.loadURL(`file://${__dirname}/index.html`);
+    mainWindow.loadURL(`file://${__dirname}/views/index.html`);
 
     const appIcon = new Tray(path.join(__dirname, 'images', 'trayicon.png'));
     appIcon.setToolTip('GoogleTasks Desktop by Wixiweb');
