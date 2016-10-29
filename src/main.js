@@ -1,30 +1,107 @@
+// Include Node.JS Electron modules
 const electron = require('electron');
-// Module to control application life.
+// Include Node.JS Path module
+const path = require("path");
+
+// Electron module to control application life.
 const app = electron.app;
-// Module to create native browser window.
+// Electron module to create native browser window.
 const BrowserWindow = electron.BrowserWindow;
+// Electron module to create tray icon on notification bar
+const Tray = electron.Tray;
+// Electron module to create tray menu or context menu
+const Menu = electron.Menu;
+// Electron module to allow communication between main en renderer process
+//const ipc = electron.ipcMain;
+// Electron module to use shell like open external link
+const shell = electron.shell;
+
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
 
-function createWindow () {
-  // Create the browser window.
-  mainWindow = new BrowserWindow({width: 800, height: 600});
+function createWindow() {
 
-  // and load the index.html of the app.
-  mainWindow.loadURL(`file://${__dirname}/index.html`);
+    var display = electron.screen;
 
-  // Open the DevTools.
-  mainWindow.webContents.openDevTools();
+    // Create the browser window.
+    mainWindow = new BrowserWindow({
+        'width': 400,
+        'height': 600,
+        'x': display.getPrimaryDisplay().workAreaSize.width - 400,
+        'y': display.getPrimaryDisplay().workAreaSize.height - 600,
+        'icon': path.join(__dirname, 'images', 'icon.png'),
+        'min-width': 300,
+        'min-height': 300,
+        'frame': false,       // Hide system menu
+        'transparent': true,  // No app Background
+        'skip-taskbar': true,  // Hidden on taskbar
+    });
 
-  // Emitted when the window is closed.
-  mainWindow.on('closed', function () {
-    // Dereference the window object, usually you would store windows
-    // in an array if your app supports multi windows, this is the time
-    // when you should delete the corresponding element.
-    mainWindow = null
-  })
+    // and load the index.html of the app.
+    mainWindow.loadURL(`file://${__dirname}/index.html`);
+
+    const appIcon = new Tray(path.join(__dirname, 'images', 'trayicon.png'));
+    appIcon.setToolTip('GoogleTasks Desktop by Wixiweb');
+    appIcon.on('click', function () {
+        mainWindow.focus();
+        mainWindow.show();
+    });
+
+    var contextMenu = Menu.buildFromTemplate([
+        {
+            label: 'Debug',
+            icon: path.join(__dirname, 'images', 'debug.png'),
+            click: function () {
+
+                // Open the DevTools.
+                mainWindow.openDevTools();
+
+                // Adapte app size for DevTools.
+                mainWindow.setSize(
+                    mainWindow.getSize()[0] + 600,
+                    mainWindow.getSize()[1]
+                );
+
+                // Adapte app position for DevTools.
+                mainWindow.setPosition(
+                    mainWindow.getPosition()[0] - 600,
+                    mainWindow.getPosition()[1]
+                );
+            }
+        }, {
+            label: 'Open in browser',
+            icon: path.join(__dirname, 'images', 'external.png'),
+            click: function () {
+                shell.openExternal("https://mail.google.com/tasks/ig")
+            }
+        }, {
+            label: 'Logout',
+            icon: path.join(__dirname, 'images', 'logout.png'),
+            click: function () {
+                mainWindow.webContents.send('view-load-url', 'https://accounts.google.com/logout?&continue=https%3A%2F%2Fmail.google.com%2Ftasks%2Fig&followup=https%3A%2F%2Fmail.google.com%2Ftasks%2Fig#identifier');
+            }
+        }, {
+            label: 'Close',
+            icon: path.join(__dirname, 'images', 'close.png'),
+            click: function () {
+                mainWindow.close();
+            }
+        }
+
+    ]);
+
+    // Apply contextMenu to the Tray Icon
+    appIcon.setContextMenu(contextMenu);
+
+    // Emitted when the window is closed.
+    mainWindow.on('closed', function () {
+        // Dereference the window object, usually you would store windows
+        // in an array if your app supports multi windows, this is the time
+        // when you should delete the corresponding element.
+        mainWindow = null
+    })
 }
 
 // This method will be called when Electron has finished
@@ -34,19 +111,19 @@ app.on('ready', createWindow);
 
 // Quit when all windows are closed.
 app.on('window-all-closed', function () {
-  // On OS X it is common for applications and their menu bar
-  // to stay active until the user quits explicitly with Cmd + Q
-  if (process.platform !== 'darwin') {
-    app.quit()
-  }
+    // On OS X it is common for applications and their menu bar
+    // to stay active until the user quits explicitly with Cmd + Q
+    if (process.platform !== 'darwin') {
+        app.quit()
+    }
 });
 
 app.on('activate', function () {
-  // On OS X it's common to re-create a window in the app when the
-  // dock icon is clicked and there are no other windows open.
-  if (mainWindow === null) {
-    createWindow()
-  }
+    // On OS X it's common to re-create a window in the app when the
+    // dock icon is clicked and there are no other windows open.
+    if (mainWindow === null) {
+        createWindow()
+    }
 });
 
 // In this file you can include the rest of your app's specific main process
