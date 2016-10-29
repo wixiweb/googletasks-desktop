@@ -8,14 +8,16 @@
 </head>
 <body class="noselect">
 
-<div class="drag toolbar"></div>
+<div class="drag toolbar js-toolbar">
+    <span class="title js-title"></span>
+    <div class="nodrag close js-close">✖</div>
+    <div class="nodrag magnetic js-magnetic"><img src=../images/magnetic.png></div>
+    <div class="nodrag pin js-pin"><img src=../images/pin.png></div>
+</div>
 
-<webview id="view" src="https://mail.google.com/tasks/ig?pli=1" style="
-      position:absolute;
-      left:3px;
-      right:3px;
-      bottom:0;
-      top:40px" partition="persist:google"></webview>
+<div class="wait js-wait"><img src=../images/preloader.gif></div>
+
+<webview id="view" class="view" src="https://mail.google.com/tasks/ig?pli=1" partition="persist:google"></webview>
 
 </body>
 

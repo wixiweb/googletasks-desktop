@@ -9,6 +9,14 @@ html, body {
     background: #fff;
 }
 
+.view {
+    position: absolute;
+    left: 3px;
+    right: 3px;
+    bottom: 0;
+    top: 40px
+}
+
 .title {
     font-weight: 300;
     line-height: 40px;
@@ -81,4 +89,11 @@ html, body {
 
 .magnetic.is-magnetized {
     opacity: 1;
+}
+
+.wait {
+    position: absolute;
+    left: calc(50% - 32px);
+    top: calc(50% - 32px);
+    z-index: 1
 }
