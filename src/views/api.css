@@ -1,9 +1,11 @@
-.drag{
+.drag {
     -webkit-app-region: drag;
 }
-.nodrag{
+
+.nodrag {
     -webkit-app-region: no-drag;
 }
-.noselect{
+
+.noselect {
     -webkit-user-select: none;
 }
