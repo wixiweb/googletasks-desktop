@@ -18,6 +18,7 @@
   "author": "arnolem",
   "license": "GNU",
   "devDependencies": {
-    "electron": "^1.4.1"
+    "electron": "^1.4.1",
+    "electron-packager": "^8.1.0"
   }
 }

@@ -31,7 +31,7 @@ function createWindow() {
         'height': 600,
         'x': display.getPrimaryDisplay().workAreaSize.width - 400,
         'y': display.getPrimaryDisplay().workAreaSize.height - 600,
-        'icon': path.join(__dirname, 'images', 'icon.png'),
+        'icon': path.join(__dirname, 'images', 'appicon.png'),
         'min-width': 300,
         'min-height': 300,
         'frame': false,       // Hide system menu

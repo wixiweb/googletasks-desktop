@@ -1,0 +1,1 @@
+.\node_modules\.bin\electron-packager . "GoogleTasksDesktop" --platform=win32 --arch=x64 --version=1.4.1 --out=./build --overwrite --icon=./src/images/shortcut.ico --win32metadata.ProductName="GoogleTasks Desktop" --win32metadata.CompanyName="Wixiweb" --app-copyright="Wixiweb"
