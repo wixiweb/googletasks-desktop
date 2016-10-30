@@ -12,7 +12,7 @@ const Tray = electron.Tray;
 // Electron module to create tray menu or context menu
 const Menu = electron.Menu;
 // Electron module to allow communication between main en renderer process
-//const ipc = electron.ipcMain;
+const ipc = electron.ipcMain;
 // Electron module to use shell like open external link
 const shell = electron.shell;
 
@@ -32,11 +32,12 @@ function createWindow() {
         'x': display.getPrimaryDisplay().workAreaSize.width - 400,
         'y': display.getPrimaryDisplay().workAreaSize.height - 600,
         'icon': path.join(__dirname, 'images', 'appicon.png'),
-        'min-width': 300,
-        'min-height': 300,
+        'minWidth': 300,
+        'minHeight': 300,
+        'backgroundColor': '#50ffffff',
         'frame': false,       // Hide system menu
         'transparent': true,  // No app Background
-        'skip-taskbar': true,  // Hidden on taskbar
+        'skipTaskbar': true,  // Hidden on taskbar
     });
 
     // and load the index.html of the app.
@@ -45,8 +46,12 @@ function createWindow() {
     const appIcon = new Tray(path.join(__dirname, 'images', 'trayicon.png'));
     appIcon.setToolTip('GoogleTasks Desktop by Wixiweb');
     appIcon.on('click', function () {
-        mainWindow.focus();
-        mainWindow.show();
+        if(mainWindow.isVisible()){
+            mainWindow.hide();
+        }else{
+            mainWindow.focus();
+            mainWindow.show();
+        }
     });
 
     var contextMenu = Menu.buildFromTemplate([
@@ -123,6 +128,12 @@ app.on('activate', function () {
     // dock icon is clicked and there are no other windows open.
     if (mainWindow === null) {
         createWindow()
+    }
+});
+
+ipc.on('close-main-window', function () {
+    if (mainWindow) {
+        mainWindow.hide();
     }
 });
 
