@@ -20,6 +20,7 @@ const shell = electron.shell;
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
+let appIcon;
 
 function createWindow() {
 
@@ -43,7 +44,7 @@ function createWindow() {
     // and load the index.html of the app.
     mainWindow.loadURL(`file://${__dirname}/views/index.html`);
 
-    const appIcon = new Tray(path.join(__dirname, 'images', 'trayicon.png'));
+    appIcon = new Tray(path.join(__dirname, 'images', 'trayicon.png'));
     appIcon.setToolTip('GoogleTasks Desktop by Wixiweb');
     appIcon.on('click', function () {
         if(mainWindow.isVisible()){
