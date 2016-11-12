@@ -14,7 +14,7 @@ html, body {
     left: 3px;
     right: 3px;
     bottom: 0;
-    top: 40px
+    top: 43px;
 }
 
 .title {
@@ -30,7 +30,7 @@ html, body {
     height: 40px;
     background: #455a64;
     color: #fff;
-    margin: 3px;
+    padding: 3px 3px 0 3px;
 }
 
 .close {

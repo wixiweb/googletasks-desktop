@@ -7,7 +7,7 @@ const ipc = electron.ipcRenderer;
 let close = document.querySelector('.js-close');
 let pin = document.querySelector('.js-pin');
 let magnetic = document.querySelector('.js-magnetic');
-let toolbar = document.querySelector('.js-toolbar');
+let drag = document.querySelector('.js-drag');
 let title = document.querySelector(".js-title");
 let wait = document.querySelector(".js-wait");
 
@@ -34,9 +34,9 @@ magnetic.addEventListener('click', function () {
             display.getPrimaryDisplay().workAreaSize.width - BrowserWindow.getBounds().width,
             display.getPrimaryDisplay().workAreaSize.height - BrowserWindow.getBounds().height
         );
-        toolbar.classList.remove('drag');
+        drag.classList.remove('drag');
     } else {
-        toolbar.classList.add('drag');
+        drag.classList.add('drag');
     }
 });
 
